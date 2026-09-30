@@ -1,5 +1,5 @@
-# Ignorar backend local de Node para que Vercel no lo convierta en serverless
-server.js
+# Ignorar servidor local para que Vercel trate la web como sitio estático puro
+dev-server.js
 lib/
 
 # Ignorar datos locales y credenciales
