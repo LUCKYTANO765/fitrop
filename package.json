@@ -4,7 +4,6 @@
   "private": true,
   "description": "Sitio FITROP con gestión local de puestos y reservas",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js --host 0.0.0.0"
+    "dev": "node server.js"
   }
 }
