@@ -1,0 +1,322 @@
+/* FITROP croquis: warm cartography inspired by the Trópico de Cochabamba.
+   The SVG's geometry and stand numbering follow the source plan. */
+#croquis {
+  --map-ink: #243d34;
+  --map-leaf: #397a55;
+  --map-leaf-light: #dce9d3;
+  --map-river: #4b9698;
+  --map-clay: #bd684b;
+  --map-maize: #c89842;
+  --map-paper: #f7f2e5;
+  --map-road: #e8dfc9;
+  --map-line: #a9b59f;
+  background: radial-gradient(circle at 12% 0%, #e7eddb 0, transparent 32rem),
+              radial-gradient(circle at 90% 24%, #f1e1c5 0, transparent 34rem),
+              #f2ead8;
+  color: var(--map-ink);
+}
+
+#croquis::before { display: none; }
+#croquis .fair-plan-title { color: #244d39; }
+#croquis .fair-plan-description { color: #536653; }
+#croquis .fair-plan-stats,
+#croquis .fair-plan-map-card,
+#croquis .fair-plan-directory {
+  background: #fffcf3;
+  border: 1px solid #c8d2b9;
+  box-shadow: 0 18px 45px rgba(65, 77, 46, .11);
+}
+#croquis .fair-plan-stat + .fair-plan-stat { border-color: #d8decb; }
+#croquis .fair-plan-stat strong { color: #317650; }
+#croquis .fair-plan-stat span { color: #586b5a; }
+#croquis .fair-plan-reserve-link {
+  background: #316d4d;
+  border-color: #316d4d;
+  color: #fffaf0;
+  box-shadow: 0 7px 18px rgba(42, 89, 61, .18);
+}
+#croquis .fair-plan-reserve-link:hover { background: #265b40; border-color: #265b40; }
+#croquis .fair-plan-map-toolbar {
+  background: #e7ead7;
+  border-bottom: 1px solid #c5d0b8;
+  color: var(--map-ink);
+}
+#croquis .fair-plan-toolbar-title { color: #244d39; }
+#croquis .fair-plan-live-dot { background: #aa704e; box-shadow: none; }
+#croquis .fair-plan-scale-chip,
+#croquis .fair-plan-count {
+  color: #3f684d;
+  background: #f4f6e8;
+  border-color: #c8d3bd;
+}
+#croquis .fair-plan-view-modes {
+  background: #f5f1e5;
+  border-color: #c9d0bb;
+}
+#croquis .fair-mode-btn { color: #607464; }
+#croquis .fair-mode-btn:hover { color: #254735; background: #e6eadb; }
+#croquis .fair-mode-btn.active { background: #397a55; color: #fffaf0; box-shadow: none; }
+#croquis .fair-plan-control,
+#croquis .fair-preset-btn,
+#croquis .fair-cat-chip {
+  background: #fffaf0;
+  border-color: #cad3be;
+  color: #405947;
+  box-shadow: none;
+}
+#croquis .fair-plan-control:hover,
+#croquis .fair-preset-btn:hover,
+#croquis .fair-cat-chip:hover,
+#croquis .fair-preset-btn.active,
+#croquis .fair-cat-chip.active {
+  background: #dce9d3;
+  border-color: #6f9a70;
+  color: #244d39;
+  box-shadow: none;
+}
+#croquis .fair-plan-presets-bar,
+#croquis .fair-plan-categories-bar {
+  background: #f7f3e9;
+  border-bottom-color: #d7d9c8;
+}
+#croquis .presets-label,
+#croquis .cat-label { color: #647565; }
+#croquis .fair-plan-viewport {
+  background: #e8dfc9;
+  scrollbar-color: #9fae91 transparent;
+}
+#croquis .fair-plan-map-caption {
+  background: #e7ead7;
+  border-top: 1px solid #c5d0b8;
+  color: #3f5c47;
+}
+#croquis .caption-text-block strong { color: #28523b; }
+#croquis .fair-plan-directory-heading h2,
+#croquis .fair-plan-details h3 { color: #274836; }
+#croquis .fair-plan-eyebrow,
+#croquis .fair-plan-details-kicker { color: #477954; }
+#croquis .fair-plan-search { background: #f8f6ec; border-color: #cbd4c2; color: #536b56; }
+#croquis .fair-plan-search input { color: #263d31; }
+#croquis .fair-plan-details { color: #445d4a; }
+#croquis .fair-plan-sector-list > button {
+  color: #2d4938;
+  background: #fffcf2;
+  border-color: #d5dbc9;
+}
+#croquis .fair-plan-sector-list > button span:first-of-type { font-size: .82rem; }
+#croquis .fair-plan-sector-list > button span:last-child { color: #506955; font-size: .72rem; }
+#croquis .fair-plan-sector-list > button:is(:hover,:focus-visible,.is-active) {
+  color: #214b33;
+  background: #e5efdd;
+  border-color: #85aa80;
+}
+
+/* Paper, cartographic frame and masthead. No dark CAD grid or neon effects. */
+#fairPlanSvg { font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif; background: #f6f0e2; }
+#fairPlanSvg #layerBase > rect:first-child { fill: #f6f0e2; }
+#fairPlanSvg #layerBase > rect:nth-of-type(2) { display: none; }
+#fairPlanSvg #layerBase > rect:nth-of-type(3) {
+  fill: none; stroke: #9ab190; stroke-width: 2; stroke-dasharray: none;
+}
+#fairPlanSvg #layerBase > rect:nth-of-type(4) { fill: #e8dfc9; }
+#fairPlanSvg #layerBase .portal-badge rect { fill: #fdf9ec; stroke: #99b18f; }
+#fairPlanSvg #layerBase .portal-badge text { fill: #2e5c41; }
+#fairPlanSvg #layerBase .cad-master-title rect { fill: #fdf9ec; stroke: #8aa98a; }
+#fairPlanSvg #layerBase .cad-master-title text { fill: #274331; }
+#fairPlanSvg #tropicalRoads .tropical-avenue { fill: #d6c4a0; stroke: #af8e62; stroke-width: 1.6px; }
+#fairPlanSvg #tropicalRoads .tropical-avenue-edge { fill: none; stroke: #fff8e9; stroke-width: 1.8px; }
+#fairPlanSvg #tropicalRoads .tropical-avenue-center { fill: none; stroke: #ae8758; stroke-width: .85px; stroke-dasharray: 11 12; }
+#fairPlanSvg #tropicalRoads .tropical-avenue-median { fill: #6e985f; opacity: .85; }
+#fairPlanSvg #tropicalRoads .tropical-avenue-nameplate { fill: #fff9eb; stroke: #b3996e; stroke-width: .8px; }
+
+/* Recolour every vector component. Specific groups below give each place its own material. */
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#0f172a"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#0b131e"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#111c2a"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#131e2e"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#13202e"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#131b24"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#111822"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#1e293b"] { fill: #fbf8ee; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#f8fafc"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#ffffff"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#fdf4ff"] { fill: #fffdf4; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#064e3b"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#14281c"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#1b3826"] { fill: #dce9d3; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#332a18"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#2b2615"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#1c1a14"] { fill: #f3e4c4; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#2a0e0e"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#241432"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#181326"] { fill: #f0dbd0; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#082f49"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#0284c7"] { fill: #d3e7df; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#eab308"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#f59e0b"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#facc15"] { fill: #e9c77f; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#ec4899"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#ef4444"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#f43f5e"] { fill: #e5a38d; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#22c55e"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#34d399"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#16a34a"] { fill: #91b982; }
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#38bdf8"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#06b6d4"],
+#fairPlanSvg :is(rect,circle,path,polygon,ellipse)[fill="#22d3ee"] { fill: #a8d4d2; }
+
+#fairPlanSvg [stroke="#64748b"],
+#fairPlanSvg [stroke="#475569"],
+#fairPlanSvg [stroke="#536174"],
+#fairPlanSvg [stroke="#94a3b8"],
+#fairPlanSvg [stroke="#334155"],
+#fairPlanSvg [stroke="#253548"] { stroke: #a8ae99; }
+#fairPlanSvg [stroke="#2563eb"],
+#fairPlanSvg [stroke="#3b82f6"],
+#fairPlanSvg [stroke="#3B82F6"],
+#fairPlanSvg [stroke="#7c83ff"],
+#fairPlanSvg [stroke="#4F46E5"] { stroke: #6d9779; }
+#fairPlanSvg [stroke="#0ea5e9"],
+#fairPlanSvg [stroke="#38bdf8"],
+#fairPlanSvg [stroke="#06b6d4"],
+#fairPlanSvg [stroke="#06B6D4"],
+#fairPlanSvg [stroke="#22d3ee"] { stroke: #6ca5a0; }
+#fairPlanSvg [stroke="#eab308"],
+#fairPlanSvg [stroke="#f59e0b"],
+#fairPlanSvg [stroke="#F59E0B"],
+#fairPlanSvg [stroke="#fbbf24"] { stroke: #c3984d; }
+#fairPlanSvg [stroke="#22c55e"],
+#fairPlanSvg [stroke="#16a34a"],
+#fairPlanSvg [stroke="#34d399"],
+#fairPlanSvg [stroke="#10b981"] { stroke: #68936a; }
+#fairPlanSvg [stroke="#ec4899"],
+#fairPlanSvg [stroke="#d946ef"],
+#fairPlanSvg [stroke="#A855F7"],
+#fairPlanSvg [stroke="#f43f5e"],
+#fairPlanSvg [stroke="#ef4444"] { stroke: #b67864; }
+
+#fairPlanSvg text { fill: #314c3a; paint-order: normal; }
+#fairPlanSvg .road-group text {
+  fill: #294b38;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 7.2px;
+  font-weight: 800;
+  letter-spacing: .14px;
+  paint-order: stroke fill;
+  stroke: #fff9ec;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+}
+#fairPlanSvg .road-group text.road-text-v { font-size: 6.8px; }
+#fairPlanSvg .road-group > rect:first-child,
+#fairPlanSvg .road-group rect:first-child { fill: #e4dcca; stroke: #b49f80; stroke-width: 1.5px; }
+#fairPlanSvg .road-group rect:not(:first-child) { fill: #fff9eb; stroke: #c8b998; stroke-width: .5px; }
+#fairPlanSvg .road-group line { stroke: #bea980; stroke-width: .85px; }
+#fairPlanSvg #roadMurillo > rect:first-child,
+#fairPlanSvg #roadAvSantaCruzMz9Mz2 > rect:first-child,
+#fairPlanSvg #roadSantaCruzCadText > rect:first-child { fill: #d6c4a0; stroke: #a78861; }
+#fairPlanSvg .road-group .road-text,
+#fairPlanSvg .road-group .road-text-prominent,
+#fairPlanSvg .road-group .highway-text { fill: #294b38; }
+#fairPlanSvg #roadSantaCruzCadText text:first-of-type { font-size: 8px; }
+#fairPlanSvg #roadSantaCruzCadText text:last-of-type { font-size: 4.4px; font-weight: 700; }
+#fairPlanSvg #cadStripComerciantesArtesanos > text {
+  fill: #294b38;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  stroke: #fff9eb;
+  stroke-width: 1.2px;
+  paint-order: stroke fill;
+}
+
+/* Parcel blocks and lot numbers: cream lots, quiet divisions, forest-green identifiers. */
+#fairPlanSvg .cad-manzana-base,
+#fairPlanSvg .cad-manzana > rect:first-child { fill: #fffaf0; stroke: #829b7b; stroke-width: 1.6px; }
+#fairPlanSvg .cad-manzana > line,
+#fairPlanSvg .cad-manzana > path[stroke="#475569"],
+#fairPlanSvg .cad-manzana > g > line[stroke="#475569"] { stroke: #b9bdad; }
+#fairPlanSvg .cad-lot-badge circle { fill: #fffdf5; stroke: #9cae98; stroke-width: 1px; }
+#fairPlanSvg .cad-lot-badge text { fill: #304b39; font-weight: 800; }
+#fairPlanSvg .cad-manzana-badge circle { fill: #397a55; stroke: #fffaf0; stroke-width: 1.7px; }
+#fairPlanSvg .cad-manzana-badge text { fill: #fffdf3; stroke: none; }
+#fairPlanSvg .cad-manzana:hover .cad-manzana-base { stroke: #476f4d; stroke-width: 2px; filter: none; }
+#fairPlanSvg .cad-manzana:hover .cad-manzana-badge circle { fill: #285f42; stroke: #fffaf0; }
+#fairPlanSvg #cadManzana76 .cad-manzana-base { fill: #f7ead3; stroke: #a98e5f; }
+#fairPlanSvg #cadManzana18 .cad-manzana-base { fill: #f6f1e4; stroke: #98a689; }
+#fairPlanSvg #cadManzana10 .cad-manzana-base { fill: #f6e8dc; stroke: #b6866b; }
+#fairPlanSvg #cadFranzTamayo .school-ground { fill: #e5eee1; }
+#fairPlanSvg #cadFranzTamayo > path:not(.school-ground) { stroke: #769479; }
+#fairPlanSvg .cad-lot-badge:hover circle { fill: #d5e8cb !important; stroke: #4d8058 !important; }
+#fairPlanSvg .cad-lot-badge:hover text { fill: #244d39 !important; }
+#fairPlanSvg .cad-diamond-stands polygon:hover { fill: #d6e6d2; stroke: #5b8a67; }
+#fairPlanSvg .cad-parking-blocks g:hover rect { fill: #ecede1; stroke: #899c87; }
+#fairPlanSvg .cad-parking-blocks g:hover text { fill: #2f4738; }
+#fairPlanSvg :is(.cad-parking-bays,.cad-parking-blocks,#cadParqueoMz36,#cadParqueoEventos) :is(rect,path,polygon) { fill: #eaeadd; stroke: #9ba996; }
+
+/* The plaza is planted rather than a blue outlined empty rectangle. */
+#fairPlanSvg #cadPlazaPrincipal25Sept .plaza-base { fill: #dce9d0; stroke: #6d9570; stroke-width: 2px; }
+#fairPlanSvg #cadPlazaPrincipal25Sept .plaza-garden { fill: #bfd7ad; stroke: #94b686; fill-opacity: 1; stroke-dasharray: none; }
+#fairPlanSvg #cadPlazaPrincipal25Sept .plaza-walk { stroke: #f3e8ca; }
+#fairPlanSvg #cadPlazaPrincipal25Sept .plaza-trees circle { fill: #578c5d; stroke: #e7f0d9; stroke-width: 1.2px; }
+#fairPlanSvg #cadPlazaPrincipal25Sept > g circle { fill: #bc674b; stroke: #fff7e7; }
+#fairPlanSvg #cadPlazaPrincipal25Sept > g text { fill: #fffaf0; }
+#fairPlanSvg #cadPlazaPrincipal25Sept > text { fill: #294b36; }
+#fairPlanSvg #cadPlazaPrincipal25Sept > text:last-child { fill: #865c36; }
+
+/* Water is matte river turquoise; greenery and fair sectors share one muted palette. */
+#fairPlanSvg :is(#cadCanalSur,#cadCanalizacionDiagonal,#cadCanalDiagonalMz35) :is(path,line,polyline) { stroke: #579b9b; }
+#fairPlanSvg :is(#cadCanalSur,#cadCanalizacionDiagonal,#cadCanalDiagonalMz35) :is(rect,polygon) { fill: #cae5de; stroke: #579b9b; }
+#fairPlanSvg #stripPasarelaCrossing :is(path,line,rect) { stroke: #629b96; }
+#fairPlanSvg :is(#stripPlantinesViveros,#cadSectorMaquinariasVehiculos) text { fill: #2f6747; }
+#fairPlanSvg #stripPlantinesViveros rect { fill: #dcebd6; stroke: #67956e; }
+#fairPlanSvg #stripPlantinesViveros line { stroke: #67956e; }
+#fairPlanSvg #stripSectorGanaderia rect { fill: #f1e3c4; stroke: #a37e49; }
+#fairPlanSvg #stripSectorGanaderia line { stroke: #a37e49; }
+#fairPlanSvg #stripSectorGanaderia text { fill: #76552e; }
+#fairPlanSvg #stripPlazaComidas rect { fill: #f4dfb6; stroke: #b48440; }
+#fairPlanSvg #stripPlazaComidas line { stroke: #b48440; }
+#fairPlanSvg #stripPlazaComidas text { fill: #71552c; }
+#fairPlanSvg :is(#stripComerciantesA,#stripComerciantesB,#stripComerciantesC,#stripBienesRaices,#stripEmpresarialA,#stripEmpresarialB) rect { fill: #e7eee0; stroke: #7f9c82; }
+#fairPlanSvg :is(#stripComerciantesA,#stripComerciantesB,#stripComerciantesC,#stripBienesRaices,#stripEmpresarialA,#stripEmpresarialB) line { stroke: #7f9c82; }
+#fairPlanSvg :is(#stripArtesanosA,#stripArtesanosB,#stripIndustrialA,#stripIndustrialB,#stripIndustrialC,#stripMobiliarioMadera) rect { fill: #f5e5c6; stroke: #ba9454; }
+#fairPlanSvg :is(#stripArtesanosA,#stripArtesanosB,#stripIndustrialA,#stripIndustrialB,#stripIndustrialC,#stripMobiliarioMadera) line { stroke: #ba9454; }
+#fairPlanSvg #cadSectorMaquinariasVehiculos rect { fill: #f1ddd3; stroke: #b87d65; }
+#fairPlanSvg #cadSectorMaquinariasVehiculos line { stroke: #b87d65; }
+#fairPlanSvg #cadStripComerciantesArtesanos > g[id^="strip"] > text {
+  fill: #264636;
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: .08px;
+  paint-order: stroke fill;
+  stroke: #fff9eb;
+  stroke-width: .6px;
+}
+#fairPlanSvg :is(#stripArtesanosA,#stripBienesRaices,#stripIndustrialA,#stripIndustrialB,#stripIndustrialC,#stripEmpresarialA,#stripEmpresarialB) > text { font-size: 5px; }
+#fairPlanSvg :is(#stripComerciantesA,#stripComerciantesB,#stripArtesanosB) > text { font-size: 3.4px; }
+#fairPlanSvg #stripComerciantesC > text { font-size: 2.2px; }
+#fairPlanSvg #stripMobiliarioMadera > text { font-size: 3px; }
+#fairPlanSvg :is(#stripArtesanosA,#stripBienesRaices,#stripIndustrialA,#stripIndustrialB,#stripIndustrialC,#stripEmpresarialA,#stripEmpresarialB) > rect:nth-of-type(2) {
+  fill: #fff9e9;
+  stroke: #c7b990;
+  stroke-width: .45px;
+}
+#fairPlanSvg :is(#cadSectorA,#cadSectorB,#cadSectorC) rect { fill: #f0e5dc; stroke: #ae8172; }
+#fairPlanSvg :is(#cadSectorA,#cadSectorB,#cadSectorC) line { stroke: #ae8172; }
+#fairPlanSvg #cadPisciculturaSur rect { fill: #d5e9e5; stroke: #669d99; }
+#fairPlanSvg #cadApiculturaSur rect { fill: #f5e7c0; stroke: #b58d45; }
+
+/* Compass and interactions have no glow. The old numeric scale is not valid after source-row adjustments. */
+#fairPlanSvg #mapScale { display: none; }
+#fairPlanSvg #mapCompass :is(path,line,circle,polygon) { stroke: #5f8265; }
+#fairPlanSvg #mapCompass text { fill: #315b41; }
+#fairPlanSvg g[role="button"]:focus-visible { filter: drop-shadow(0 2px 3px rgba(39, 77, 52, .34)); }
+#fairPlanSvg .vector-sector:hover .sector-base,
+#fairPlanSvg .vector-sector.active .sector-base { filter: none; }
+
+@media (max-width: 760px) {
+  #croquis .fair-plan-map-toolbar { background: #e7ead7; }
+  #croquis .fair-plan-presets-bar,
+  #croquis .fair-plan-categories-bar { background: #f7f3e9; }
+}

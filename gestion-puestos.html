@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FITROP 2026 | Gestión de puestos</title><meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/espacios-nuevo.css?v=20260927_checkout"><link rel="stylesheet" href="css/checkout.css?v=20260928_testpay"></head><body>
+<header class="sales-header"><div class="sales-wrap sales-nav"><a class="sales-logo" href="index.html#croquis"><img src="assets/img/logo-fitrop-header.png" alt="FITROP 2026"></a><nav><a href="index.html#croquis">Croquis</a><a href="espacios.html">Compra de puestos</a></nav></div></header>
+<main>
+    <section class="sales-admin-section" id="admin" aria-labelledby="adminTitle">
+      <div class="sales-wrap">
+        <div class="sales-section-head">
+          <span class="sales-eyebrow">Gestión interna</span>
+          <h2 id="adminTitle">Administración de puestos</h2>
+          <p>Verifique pagos, entregue códigos y gestione el titular y estado de cada puesto.</p>
+        </div>
+        <div id="adminLogin" class="sales-panel sales-login">
+          <h3>Acceso administrativo</h3>
+          <p>Ingrese su código privado para continuar.</p>
+          <form id="adminLoginForm" class="sales-fields">
+            <label>Código de acceso <input id="adminPassword" type="password" autocomplete="current-password" required></label>
+            <div class="sales-login-actions"><button class="sales-button primary" type="submit">Continuar</button><span id="adminLoginError" role="alert"></span></div>
+          </form>
+        </div>
+
+        <div id="adminDashboard" hidden>
+          <div class="sales-admin-toolbar"><span>Panel de gestión · 1.034 puestos</span><button type="button" id="adminLogout" class="sales-button secondary">Cerrar sesión</button></div>
+          <section class="sales-panel sales-social-panel" aria-labelledby="paymentSettingsTitle">
+            <div class="sales-admin-head"><div><span class="sales-card-kicker">Cobro por QR</span><h3 id="paymentSettingsTitle">Persona encargada del pago</h3></div></div>
+            <p>La revisión y confirmación de cada comprobante se hace manualmente. Activa el modo de prueba si todavía no tienes el QR.</p>
+            <form id="adminPaymentForm" class="admin-payment-grid"><div class="sales-fields"><label>Titular del QR<input id="adminPaymentHolder" maxlength="100" autocomplete="name"></label><label>WhatsApp de atención (con código de país)<input id="adminPaymentWhatsapp" type="tel" placeholder="59170000000" maxlength="20"></label><label class="sales-confirm"><input id="adminPaymentEnabled" type="checkbox"> Habilitar compra de puestos</label><label class="sales-confirm"><input id="adminPaymentTestMode" type="checkbox"> Modo de prueba sin QR real</label></div><div><label>Imagen del QR<input id="adminPaymentQr" type="file" accept="image/png,image/jpeg,image/webp"><small>JPG, PNG o WEBP · máximo 3 MB. Deje vacío para conservar el actual.</small></label><img id="adminQrPreview" class="admin-payment-preview" alt="QR configurado para los compradores" hidden><div class="sales-social-actions"><button type="submit" class="sales-button primary">Guardar configuración</button><span id="adminPaymentMessage" role="status"></span></div></div></form>
+          </section>
+          <section class="sales-panel sales-social-panel" aria-labelledby="ordersTitle">
+            <div class="sales-admin-head"><div><span class="sales-card-kicker">Compra sin cuentas</span><h3 id="ordersTitle">Pagos y compras</h3></div><strong id="adminOrderCount">0</strong></div>
+            <p class="muted">El mensaje se prepara para el WhatsApp que dejó el comprador. Para enviarlo desde FITROP, abre este panel en un dispositivo con la cuenta de WhatsApp Business de la organización iniciada.</p>
+            <div class="admin-orders-toolbar"><label>Mostrar<select id="adminOrderFilter"><option value="active">En proceso</option><option value="pending_review">Comprobantes por revisar</option><option value="confirmed">Confirmadas</option><option value="all">Todas</option></select></label><button id="adminRefreshOrders" type="button" class="sales-button secondary">Actualizar compras</button></div>
+            <div id="adminOrdersList" class="admin-orders-list"></div>
+          </section>
+          <div id="legacyImport" class="sales-panel sales-legacy-import" hidden><p id="legacyImportText"></p><button id="legacyImportButton" class="sales-button secondary" type="button">Importar datos anteriores</button><span id="legacyImportMessage" role="status"></span></div>
+          <div class="sales-admin-grid">
+            <section class="sales-panel sales-admin-requests" aria-labelledby="adminRequestsTitle">
+              <div class="sales-admin-head"><div><span class="sales-card-kicker">Registros conservados</span><h3 id="adminRequestsTitle">Solicitudes anteriores</h3></div><strong id="adminRequestCount">0</strong></div>
+              <div id="adminRequestsList" class="sales-requests-list"></div>
+            </section>
+            <section class="sales-panel sales-admin-inventory" aria-labelledby="adminInventoryTitle">
+              <div class="sales-admin-head"><div><span class="sales-card-kicker">Croquis</span><h3 id="adminInventoryTitle">Inventario de puestos</h3></div><button type="button" id="adminExport" class="sales-button secondary">Descargar CSV</button></div>
+              <div class="sales-fields two"><label>Sector <select id="adminSector"></select></label><label>Buscar número o titular <input id="adminSearch" type="search" placeholder="Código, número o nombre"></label></div>
+              <div id="adminStats" class="sales-admin-stats"></div>
+              <button id="adminOpenSector" type="button" class="sales-button secondary">Habilitar puestos sin asignar del sector</button>
+              <div id="adminStandGrid" class="sales-admin-stand-grid" role="group" aria-label="Puestos del sector"></div>
+              <form id="adminStandForm" class="sales-admin-stand-form">
+                <div class="sales-admin-selected"><strong id="adminSelectedCode">—</strong><span id="adminSelectedMeta"></span><a id="adminMapLink" href="index.html#croquis">Ver en croquis ↗</a></div>
+                <div class="sales-fields two">
+                  <label>Estado <select id="adminStatus"><option value="unassigned">Por confirmar</option><option value="available">Disponible</option><option value="reserved" disabled>Reservado con código</option><option value="sold">Vendido tras reserva</option><option value="blocked">Fuera de venta</option></select></label>
+                  <label>Titular <input id="adminBuyerName" type="text" maxlength="100"></label>
+                  <label>Empresa u organización <input id="adminOrganization" type="text" maxlength="100"></label>
+                  <label>Teléfono <input id="adminPhone" type="tel" maxlength="40"></label>
+                </div>
+                <div class="sales-code-issue">
+                  <h4>Emitir código después de verificar el pago</h4>
+                  <p>El código queda asociado a este puesto y titular. Se muestra una sola vez; entréguelo al comprador para que active su reserva.</p>
+                  <label class="sales-confirm"><input id="adminPaymentVerified" type="checkbox"> Confirmé el pago de este puesto</label>
+                  <div class="sales-code-row"><button id="adminIssueCode" class="sales-button secondary" type="button">Generar código de reserva</button><strong id="adminIssuedCode" role="status"></strong></div>
+                </div>
+                <label class="sales-full-label">Notas internas <textarea id="adminNotes" rows="2" maxlength="300"></textarea></label>
+                <div class="sales-admin-save"><span id="adminSaveMessage" role="status"></span><button class="sales-button primary" type="submit">Guardar ficha</button></div>
+              </form>
+            </section>
+          </div>
+          <section class="sales-panel sales-social-panel" aria-labelledby="adminSocialTitle">
+            <div class="sales-admin-head"><div><span class="sales-card-kicker">Comunicación oficial</span><h3 id="adminSocialTitle">Redes sociales</h3></div></div>
+            <p>Ingrese los enlaces oficiales. Una red sin enlace se mostrará desactivada en la página.</p>
+            <form id="adminSocialForm" class="sales-fields two">
+              <label>Facebook <input id="socialFacebook" type="url" placeholder="https://facebook.com/…" autocomplete="url"></label>
+              <label>X <input id="socialX" type="url" placeholder="https://x.com/…" autocomplete="url"></label>
+              <label>Instagram <input id="socialInstagram" type="url" placeholder="https://instagram.com/…" autocomplete="url"></label>
+              <label>YouTube <input id="socialYoutube" type="url" placeholder="https://youtube.com/…" autocomplete="url"></label>
+              <label>TikTok <input id="socialTiktok" type="url" placeholder="https://tiktok.com/@…" autocomplete="url"></label>
+              <div class="sales-social-actions"><button class="sales-button primary" type="submit">Guardar enlaces</button><span id="adminSocialMessage" role="status"></span></div>
+            </form>
+          </section>
+          <p class="sales-local-note">Las compras y comprobantes se guardan en el servidor de FITROP. Los archivos de pago solo son visibles en este panel.</p>
+        </div>
+      </div>
+    </section>
+</main><footer class="sales-footer"><div class="sales-wrap"><strong>FITROP 2026</strong><span>Administración de puestos</span></div></footer>
+<script src="js/stand-inventory.js?v=20260927_checkout"></script>
+<script src="js/checkout-admin.js?v=20260928_whatsapp"></script>
+<script src="js/espacios-admin.js?v=20260927_checkout"></script>
+</body></html>

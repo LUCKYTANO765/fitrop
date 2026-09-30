@@ -1,0 +1,9 @@
+# Vercel Ignore
+data/
+scratch/
+artifacts/
+tmp/
+tests/
+*.py
+*.bak*
+*.md

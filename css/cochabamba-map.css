@@ -1,0 +1,634 @@
+/* Scoped styles from mapa_cochabamba.html */
+#mapa {
+  padding: 1.5rem 0 2.5rem 0;
+  background: #070a12;
+}
+
+#mapa .cochabamba-map-card {
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  background-color: #0b0f19;
+  color: #f8fafc;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  max-height: 85vh;
+  position: relative;
+}
+
+#mapa .app-header {
+  height: 60px;
+  background: #111827;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 20;
+  flex-shrink: 0;
+}
+
+#mapa .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#mapa .brand-icon {
+  font-size: 1.4rem;
+}
+
+#mapa .brand-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+}
+
+#mapa .brand-title span {
+  color: #06b6d4;
+}
+
+#mapa .header-hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+}
+
+#mapa .app-viewport {
+  flex: 1;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+}
+
+#mapa .map-stage {
+  flex: 1;
+  position: relative;
+  background: radial-gradient(circle at center, #131d31 0%, #0b0f19 100%) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  touch-action: none;
+}
+
+#mapa .map-stage:active,
+#mapa .map-stage.is-dragging {
+  cursor: grabbing !important;
+}
+
+#mapa .map-transform-layer {
+  width: 100%;
+  height: 100%;
+  max-width: 960px;
+  max-height: 720px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+#mapa svg.cochabamba-svg {
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.6));
+}
+
+/* Estilos de los Municipios y Provincias */
+#mapa .provincia,
+#mapa .municipio {
+  stroke-linejoin: round !important;
+  cursor: pointer !important;
+  transition: fill 0.25s ease, stroke 0.25s ease, filter 0.25s ease, stroke-width 0.25s ease, fill-opacity 0.25s ease !important;
+}
+
+#mapa .base-muni {
+  fill: #131d31 !important;
+  stroke: #2e3c54 !important;
+  stroke-width: 0.9 !important;
+  fill-opacity: 0.9 !important;
+}
+
+#mapa .base-muni:hover {
+  fill: #1e293b !important;
+  stroke: #38bdf8 !important;
+  stroke-width: 1.8 !important;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45)) !important;
+}
+
+#mapa .base-muni.activa {
+  fill: #1e293b !important;
+  stroke: #38bdf8 !important;
+  stroke-width: 2.2 !important;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.6)) !important;
+}
+
+/* Capas territoriales de los 5 Municipios del Trópico */
+#mapa .tropico-muni {
+  fill: var(--muni-color) !important;
+  fill-opacity: 0.6 !important;
+  stroke: var(--muni-color) !important;
+  stroke-width: 2.2 !important;
+  filter: drop-shadow(0 0 10px var(--muni-color)) !important;
+  cursor: pointer !important;
+}
+
+#mapa .tropico-muni:hover {
+  fill-opacity: 0.88 !important;
+  stroke: #ffffff !important;
+  stroke-width: 3.5 !important;
+  filter: drop-shadow(0 0 20px var(--muni-color)) drop-shadow(0 0 35px var(--muni-color)) !important;
+}
+
+#mapa .tropico-muni.activa {
+  fill-opacity: 0.95 !important;
+  stroke: #ffffff !important;
+  stroke-width: 3.8 !important;
+  filter: drop-shadow(0 0 24px var(--muni-color)) drop-shadow(0 0 45px var(--muni-color)) !important;
+}
+
+#mapa .map-label {
+  fill: #ffffff !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-anchor: middle !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9) !important;
+}
+
+#mapa .map-dot {
+  fill: #38bdf8 !important;
+  pointer-events: none !important;
+}
+
+#mapa .map-controls {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+#mapa .ctrl-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#mapa .ctrl-btn:hover {
+  background: #06b6d4;
+  color: #000;
+  transform: scale(1.05);
+}
+
+#mapa .ctrl-btn:active {
+  transform: scale(0.95);
+}
+
+#mapa .map-tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid #06b6d4;
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  color: #ffffff;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -130%);
+  transition: opacity 0.15s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  white-space: nowrap;
+}
+
+#mapa .map-tooltip.visible {
+  opacity: 1;
+}
+
+#mapa .sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 420px;
+  max-width: 90vw;
+  height: 100%;
+  background: #111827;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -15px 0 35px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+#mapa .sidebar.activa {
+  transform: translateX(0);
+}
+
+#mapa .sidebar-header {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(17, 24, 39, 0.6) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+#mapa .sidebar-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #06b6d4;
+  margin-bottom: 0.35rem;
+}
+
+#mapa .sidebar-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.2;
+}
+
+#mapa .sidebar-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: #f8fafc;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#mapa .sidebar-close-btn:hover {
+  background: #ef4444;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+#mapa .sidebar-content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+#mapa .metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+#mapa .metric-card {
+  background: #1f2937;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+#mapa .metric-label {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+#mapa .metric-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #06b6d4;
+}
+
+#mapa .info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+#mapa .info-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#mapa .info-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+#mapa .tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+}
+
+#mapa .tag-chip {
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #67e8f9;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+}
+
+#mapa .tag-chip.food {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #fcd34d;
+}
+
+#mapa .attractions-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+}
+
+#mapa .attractions-list li {
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#mapa .attractions-list li::before {
+  content: "•";
+  color: #06b6d4;
+  font-size: 1.2rem;
+  line-height: 0;
+}
+
+#mapa .sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* ============================================================ */
+/* BARRA SELECTORA DE MUNICIPIOS DEL TRÓPICO (GAMA FITROP)      */
+/* ============================================================ */
+#mapa .muni-tropico-selector-bar {
+  background: linear-gradient(90deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.98));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  z-index: 15;
+}
+
+#mapa .muni-bar-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#mapa .muni-bar-badge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+  text-transform: uppercase;
+}
+
+#mapa .muni-bar-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+#mapa .muni-pills-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#mapa .muni-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  outline: none;
+}
+
+#mapa .muni-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--muni-c);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--muni-c);
+}
+
+#mapa .muni-pill-btn.active {
+  background: var(--muni-c);
+  border-color: var(--muni-c);
+  color: #0b0f19;
+  font-weight: 800;
+  box-shadow: 0 0 18px var(--muni-c), 0 4px 12px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
+#mapa .muni-pill-btn.active strong {
+  color: #000000;
+}
+
+#mapa .muni-pill-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px currentColor;
+  flex-shrink: 0;
+}
+
+#mapa .muni-pill-btn.active .muni-pill-dot {
+  background: #000000 !important;
+  box-shadow: none;
+}
+
+/* ============================================================ */
+/* ELEMENTOS VECTORIALES DEL CORREDOR DEL TRÓPICO EN EL SVG     */
+/* ============================================================ */
+#mapa .highway-bioceanica-glow {
+  fill: none;
+  stroke: #10b981;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.25;
+  filter: drop-shadow(0 0 10px #10b981);
+}
+
+#mapa .highway-bioceanica-line {
+  fill: none;
+  stroke: #34d399;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-dasharray: 6 5;
+  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.7));
+}
+
+#mapa .muni-marker-node {
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  outline: none;
+}
+
+#mapa .muni-marker-node:hover,
+#mapa .muni-marker-node:focus,
+#mapa .muni-marker-node.active {
+  filter: drop-shadow(0 0 15px var(--muni-theme, #fff));
+}
+
+#mapa .muni-halo-pulse {
+  fill: var(--muni-theme);
+  opacity: 0.35;
+  transform-origin: center;
+  animation: muniHaloPulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes muniHaloPulse {
+  0% {
+    r: 8px;
+    opacity: 0.8;
+  }
+  70% {
+    r: 26px;
+    opacity: 0.05;
+  }
+  100% {
+    r: 28px;
+    opacity: 0;
+  }
+}
+
+#mapa .muni-halo-ring {
+  fill: none;
+  stroke: var(--muni-theme);
+  stroke-width: 1.6;
+  opacity: 0.7;
+}
+
+#mapa .muni-core-pin {
+  transition: transform 0.2s ease, r 0.2s ease;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+}
+
+#mapa .muni-marker-node:hover .muni-core-pin,
+#mapa .muni-marker-node.active .muni-core-pin {
+  transform: scale(1.2);
+  transform-origin: center;
+}
+
+#mapa .muni-svg-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  fill: #ffffff;
+  text-anchor: middle;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  letter-spacing: 0.6px;
+}
+
+#mapa .muni-svg-sublabel {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  text-anchor: middle;
+  text-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  #mapa .muni-tropico-selector-bar {
+    padding: 0.6rem 0.85rem;
+  }
+  #mapa .muni-pill-btn {
+    font-size: 0.74rem;
+    padding: 0.35rem 0.65rem;
+  }
+}

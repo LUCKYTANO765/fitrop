@@ -1,0 +1,19 @@
+# Datos y credenciales sensibles (NUNCA subir a repositorios públicos)
+data/
+data/*
+
+# Archivos temporales y de pruebas
+tmp/
+tests/tmp/
+
+# Directorio de trabajo y borradores de desarrollo (scripts, geojsons de prueba)
+scratch/
+artifacts/
+*.bak*
+check_svg_nesting.py
+
+# Dependencias y entornos
+node_modules/
+.vercel
+.env
+.env.*
