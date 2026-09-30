@@ -1,4 +1,8 @@
-# Vercel Ignore
+# Ignorar backend local de Node para que Vercel no lo convierta en serverless
+server.js
+lib/
+
+# Ignorar datos locales y credenciales
 data/
 scratch/
 artifacts/
