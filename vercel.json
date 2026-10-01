@@ -1,3 +1,8 @@
 {
-  "cleanUrls": false
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "functions": { "api/index.js": { "maxDuration": 60 } },
+  "rewrites": [{ "source": "/api/:path*", "destination": "/api" }]
 }

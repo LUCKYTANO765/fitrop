@@ -1,6 +1,5 @@
-# Ignorar servidor local para que Vercel trate la web como sitio estático puro
+# El servidor local se conserva en el proyecto; Vercel usa api/index.js
 dev-server.js
-lib/
 
 # Ignorar datos locales y credenciales
 data/
@@ -11,3 +10,9 @@ tests/
 *.py
 *.bak*
 *.md
+.env*
+.vercel/
+node_modules/
+dist/
+.agents/
+skills-lock.json

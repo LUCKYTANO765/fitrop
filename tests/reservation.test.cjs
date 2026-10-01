@@ -10,7 +10,7 @@ test('un código único reserva solo el puesto y titular verificados', async () 
   const dataFile = path.join(root, 'tmp', `reservation-test-${crypto.randomUUID()}.json`);
   const port = 7101 + Math.floor(Math.random() * 100);
   const base = `http://127.0.0.1:${port}`;
-  const child = spawn(process.execPath, ['server.js', '--port', String(port)], {
+  const child = spawn(process.execPath, ['dev-server.js', '--port', String(port)], {
     cwd: root, env: { ...process.env, FITROP_DATA_FILE:dataFile, FITROP_ADMIN_PASSWORD:'test-only-password' },
     windowsHide:true, stdio:['ignore','pipe','pipe']
   });

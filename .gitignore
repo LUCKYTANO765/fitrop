@@ -17,3 +17,9 @@ node_modules/
 .vercel
 .env
 .env.*
+dist/
+.agents/
+skills-lock.json
+
+.vercel
+.env*
